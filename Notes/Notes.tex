@@ -51,6 +51,8 @@
 \usepackage{adjustbox}
 \usepackage{algpseudocode} %algorithms
 \usepackage{algorithm} %algorithms
+\usepackage{imakeidx}
+\makeindex
 
 % \bibliography{<mybibfile>}% ONLY selects .bib file; syntax for version <= 1.1b
 \addbibresource{bibliography.bib}% Syntax for version >= 1.2
@@ -104,6 +106,8 @@ pinstyle/.style = {pin edge={to-,thin,black}}
 
 \DeclareMathOperator{\rect}{\mathrm{rect}}
 \DeclareMathOperator{\sinc}{\mathrm{sinc}}
+
+\DeclareMathOperator{\vspan}{\mathrm{span}}
 
 %opening
 \title{Digital Processing of Single and Multidimensional Signals}
@@ -172,6 +176,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		&= \int\limits_{t \in R^d} x(t) e^{-2 j f^T t} \dif t
 	\end{align*}
 	\label{def:Fourier_transform}
+	\index{transform!Fourier}
 \end{definition}
 
 \begin{definition}[Tensor product]
@@ -179,6 +184,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		(x_1 \otimes \dots \otimes x_d)(t) &= x_1(t_1) \cdot \dots \cdot x_d(t_d)
 	\end{align*}
 	for $t \in R^d$.
+	\index{product!tensor}
 \end{definition}
 
 \begin{definition}
@@ -187,6 +193,8 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		\FT\left\{ x_1 \otimes \dots \otimes x_d \right\}(f) &= \int\limits_{R^d} x_1(t_1) \cdot \dots \cdot x_d(t_d) e^{-2 \pi j (t_1 f_1 + \dots + t_d f_d)} \dif t_1 \dots \dif t_d\\
 		&= \left( \FT\left\{ x_1(t) \right\}(f_1) \right) \dots \left( \FT\left\{ x_d(t) \right\}(f_d) \right)
 	\end{align*}
+	\index{transform!Fourier}
+	\index{product!tensor}
 \end{definition}
 
 \begin{definition}[$\rect$]
@@ -197,22 +205,28 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 				1 &;\quad |t| < \frac{1}{2}\\
 			\end{cases}
 	\end{align*}
+	\index{standard functions!rect}
 \end{definition}
 
 \begin{definition}[$\sinc$]
 	\begin{align*}
 		\sinc(t) &= \frac{\sin(\pi t)}{\pi t}
 	\end{align*}
+	\index{standard functions!sinc}
 \end{definition}
 
 \begin{theorem}
 	\begin{align*}
 		\FT\left\{ \rect(t) \right\} &= \sinc(f)
 	\end{align*}
+	\index{standard functions!rect}
+	\index{standard functions!sinc}
 \end{theorem}
 
 \begin{definition}
 	A box function is defined to be the product of rect functions in multiple dimensions.
+	\index{standard functions!box}
+	\index{standard functions!rect}
 \end{definition}
 
 \begin{theorem}[Shifting in time]
@@ -224,6 +238,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		D_p\left( x(t) \right) &= x(t - p)
 	\end{align*}
 	\label{thm:shifting_in_time}
+	\index{shift!in time}
 \end{theorem}
 
 \begin{theorem}[Stretching in time]
@@ -244,6 +259,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		\FT\left\{ x(a t) \right\} &= \frac{\FT\left\{ x(t) \right\}\left( \frac{f}{a} \right)}{|a|}
 	\end{align*}
 	\label{thm:stretching_in_time}
+	\index{stretch!in time}
 \end{theorem}
 
 \begin{theorem}[Fourier transform of Gaussian]
@@ -261,14 +277,18 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 	\end{align*}
 	where $C$ is the covariance matrix.
 	\label{thm:Fourier_transform_of_Gaussian}
+	\index{transform!Fourier}
+	\index{standard functions!Gaussian}
 \end{theorem}
 
-\begin{definition}
+\begin{definition}[Unitary matrix]
 	A matrix $A$ is said to be unitary if
 	\begin{align*}
 		A^{-1} &= A^*
 	\end{align*}
 	where $A^*$ is the conjugate transpose of $A$.
+	\index{types of matrices!unitary}
+	\index{conjugate transpose}
 \end{definition}
 
 \begin{theorem}[Rotation]
@@ -277,6 +297,8 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		\FT\left\{ R_R\left( x(t) \right) \right\} &= R_R \FT\left\{ x(t) \right\}
 	\end{align*}
 	\label{thm:rotation}
+	\index{stretch!in time}
+	\index{rotation!in time}
 \end{theorem}
 
 \begin{definition}
@@ -284,6 +306,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 	\begin{align*}
 		P\left( x(t) \right) &= \int\limits_{R^d} x(t_1,\dots,t_d) \dif t_d
 	\end{align*}
+	\index{projection!dimension-reducing}
 \end{definition}
 
 \begin{theorem}[Fourier transform of dimension reducing projection]
@@ -297,6 +320,8 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 	\end{align*}
 	where $\Q$ is the slicing operator as in \cref{def:slicing_operator}.
 	\label{thm:Fourier_transform_of_dimension_reducing_projection}
+	\index{projection!dimension-reducing}
+	\index{transform!Fourier}
 \end{theorem}
 
 \begin{definition}
@@ -305,6 +330,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		\Q\left\{ X(f_1,\dots,f_d) \right\} &= X\left( f_1,\dots,f_{d - 1},0 \right)
 	\end{align*}
 	\label{def:slicing_operator}
+	\index{standard operators!slicing}
 \end{definition}
 
 \clearpage
@@ -334,6 +360,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 	\end{align*}
 	where $\pm f_0$ are the central frequencies of the narrow band input.
 	\label{def:phase_delay}
+	\index{delay!phase}
 \end{definition}
 
 \begin{theorem}
@@ -385,6 +412,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		\tau_g(f) &= -\dod{}{f} \angle H(f)
 	\end{align*}
 	\label{def:group_delay}
+	\index{delay!group}
 \end{definition}
 
 \begin{theorem}
@@ -440,6 +468,8 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 		&= s\left( t - \tau_g(f_0) \right) \cos\left( 2 \pi f_0 \left( t - \tau_g(f_0) \right) + \varphi - \varphi_0 \right)\\
 		&= s\left( t - \tau_g(f_0) \right) \cos\left( 2 \pi f_0 (t - \tau_g - \tau_p) + \varphi \right)
 	\end{align*}
+	\index{delay!phase}
+	\index{delay!group}
 \end{theorem}
 
 \clearpage
@@ -457,6 +487,7 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 	\end{align*}
 	and $\langle x,x \rangle = 0$ iff $x = 0$.
 	Also, $\|x - y\|$ is the distance between $x$ and $y$.
+	\index{spaces!inner product}
 \end{definition}
 
 \begin{theorem}
@@ -474,6 +505,220 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 
 \begin{definition}[Hilbert space]
 	An inner product, normed, complete vector space is said to be a Hilbert space.
+	\index{spaces!Hilbert}
 \end{definition}
+
+\section{Operators and Transformations}
+
+\begin{definition}[Linear operator]
+	An operator $T$ is said to be bounded if and only if
+	\begin{align*}
+		T(a_1 x_1 + a_2 x_2) &= a_1 T(x_1) + a_2 T(x_2)
+	\end{align*}
+	\index{types of operators!linear}
+\end{definition}
+
+\begin{definition}[Adjoint of linear operation]
+	The adjoint of a linear operation $T$ is defined to be $T^*$, the only bounded operation such that
+	\begin{align*}
+		\langle T x , y \rangle &= \langle x , T^* y \rangle
+	\end{align*}
+	for all $x \in H$, $y \in S$.\\
+	\index{adjoint of linear operation}
+\end{definition}
+
+\begin{definition}[Unitary operator]
+	An operator $T$ is said to be unitary if and only if
+	\begin{align*}
+		T T^* &= T^* T\\
+		&= I
+	\end{align*}
+	where $T^*$ is the conjugate transpose of $T$.
+	\index{types of operators!unitary}
+\end{definition}
+
+\begin{definition}[Hermitian operator]
+	An operator $T$ is said to be Hermitian if and only if
+	\begin{align*}
+		T^* &= T
+	\end{align*}
+	where $T^*$ is the conjugate transpose of $T$.
+	\index{types of operators!Hermitian}
+\end{definition}
+
+\begin{theorem}
+	An operator $T$ from a Hilbert space $H$ to $H$ is Hermitian if and only if
+	\begin{align*}
+		\langle T x , x \rangle &\in \mathbb{R}
+	\end{align*}
+	for all $x \in H$.
+	\index{types of operators!Hermitian}
+\end{theorem}
+
+\begin{definition}[Orthogonal complement of subspace]
+	The orthogonal complement of a subspace $W$ is defined to be
+	\begin{align*}
+		W^{\perp} &= \left\{ x \Big| \langle x,y \rangle = 0 \quad \forall y \in W \right\}
+	\end{align*}
+	\index{orthogonal complement}
+\end{definition}
+
+\begin{definition}[Null space of linear operator]
+	The null space of a linear operator $T$ is defined to be
+	\begin{align*}
+		N(T) &= \left\{ x \Big| T x = 0 \right\}
+	\end{align*}
+	\index{null space}
+\end{definition}
+
+\begin{definition}[Range of linear operator]
+	The range of a linear operator $T$ is defined to be
+	\begin{align*}
+		R(T) &= \left\{ y \Big| T x = y \, , \, x \in H \right\}
+	\end{align*}
+	\index{null space}
+\end{definition}
+
+\begin{theorem}
+	For a linear operator $T: H \to S$,
+	\begin{align*}
+		H &= N(T) \cup N(T)^{\perp}
+	\end{align*}
+	where $N(T)$ is the null space of $T$.\\
+	Additionally, if $S$ is a closed set,
+	\begin{align*}
+		S &= R(T)^{C} \cap R(T)^{\perp}
+	\end{align*}
+	where
+	\begin{align*}
+		R(T)^{C} &= \left( R(T)^{\perp} \right)^{\perp}
+	\end{align*}
+	is the closure of $R(T)$.
+	\index{closure}
+\end{theorem}
+
+\begin{definition}[Injective transformation]
+	A linear transformation/operation $T: H \to S$ is said to be injective (one-to-one) if
+	\begin{align*}
+		x \neq y &\iff T x \neq T(y)
+	\end{align*}
+	\index{injectivity}
+	\index{one-to-one}
+\end{definition}
+
+\begin{definition}[Surjective transformation]
+	A linear transformation/operation $T: H \to S$ is said to be surjective (onto) if
+	\begin{align*}
+		R(T) &= S
+	\end{align*}
+	\index{surjectivity}
+	\index{onto}
+\end{definition}
+
+\begin{definition}[Bijective transformation]
+	A linear transformation/operation $T: H \to S$ is said to be bijective if it is injective (one-to-one) and surjective (onto).
+	\index{bijectivity}
+	\index{one-to-one and onto}
+\end{definition}
+
+\section{Singular Value Decomposition (SVD)}
+
+\begin{definition}[Eigenvalue decomposition]
+	The eigenvalue decomposition for a symmetric (and hence also square) and Hermitian matrix $A$ is
+	\begin{align*}
+		A &= V \Lambda V^*
+	\end{align*}
+	where $\Lambda$ is a diagonal matrix with the eigenvalues of $A$ as diagonal elements, and $V$ contains the corresponding eigenvectors of $A$.
+	\index{decomposition!eigenvalue}
+\end{definition}
+
+\begin{definition}[Singular Value Decomposition (SVD)]
+	Let $A \in \mathbb{R}^{m \times n}$.
+	Then, the singular value decomposition of $A$ is defined to be
+	\begin{align*}
+		A &= U \Sigma V^*
+	\end{align*}
+	where the diagonal elements of $\Sigma$ are the singular values of $A$, and the remaining elements of $\Sigma$ are zero.\\
+	The columns of $V$ are called the right singular vectors, the columns of $U$ are called the left singular vectors, and the diagonal elements of $\Sigma$ are denoted by $\sigma_i$, where $1 \le i \le \min(m,n)$.
+	\index{decomposition!singular value}
+\end{definition}
+
+\begin{theorem}
+	\begin{align*}
+		{\sigma_i}^2 &= \lambda_i \left( A^* A \right)
+	\end{align*}
+	where $\sigma_i$ are the singular values of $A$, and $\lambda_i$ are the eigenvalues of $A$, for $1 \le i \le \min(m,n)$.
+	\index{decomposition!eigenvalue}
+	\index{decomposition!singular value}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		N(A) &= \vspan\left\{ v_i \Big| \sigma_i = 0 \text{ or } i > \min(m,n) \right\}
+	\end{align*}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		R(A) &= \vspan\left\{ u_i \Big| \sigma_i \neq 0 \right\}
+	\end{align*}
+\end{theorem}
+
+\section{Set Transformations}
+
+\begin{definition}[Set transformation]
+	For a set of vectors $X$ composed of $x_1,\dots,x_n$,
+	\begin{align*}
+		x &= X a\\
+		&= \sum a_i x_i
+	\end{align*}
+	If $n$ is finite, then $X$ is a matrix with columns $x_1,\dots,x_n$.
+	\index{set transformation}
+\end{definition}
+
+\begin{definition}[Linear independence]
+	The set $\{x_i\}$ is said to be linearly independent if and only if
+	\begin{align*}
+		\sum a_i x_i &= 0
+	\end{align*}
+	implies $a_i = 0$, $\forall i$.\\
+	Equivalently, the set $\{x_i\}$ is said to be linearly independent if and only if
+	\begin{align*}
+		N(X) &= \{0\}
+	\end{align*}
+	\index{linear independence}
+\end{definition}
+
+\begin{theorem}
+	A set of orthogonal vectors/functions with positive norm is always linearly independent.
+	\index{linear independence}
+	\index{orthogonality}
+\end{theorem}
+
+\begin{definition}[Completeness]
+	As set $\{x_i \in H\}$ is said to be complete if and only if
+	\begin{align*}
+		\vspan{x_i} &= H
+	\end{align*}
+	that is, for any $x \in H$, $\exists \varepsilon > 0$ such that
+	\begin{align*}
+		\left\| x - \sum\limits_{i = 1}^{n} a_i x_i \right\| &< \varepsilon
+	\end{align*}
+	for a large enough $n$.
+	\index{completeness}
+\end{definition}
+
+\begin{definition}[Schauter basis]
+	A set $\{x_i\} \in H$ is said to be a basis of $H$ if for any $x \in H$, there are unique coefficients $a_i$ such that
+	\begin{align*}
+		x &= \sum\limits_{i = 1}^{n} a_i x_i
+	\end{align*}
+	where $n$ is the dimension of $H$, and may be infinite.
+	\index{basis!Schauter}
+	\index{basis}
+\end{definition}
+
+\clearpage
+\printindex
 
 \end{document}
