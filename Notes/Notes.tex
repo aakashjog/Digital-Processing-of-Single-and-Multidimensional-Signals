@@ -109,6 +109,8 @@ pinstyle/.style = {pin edge={to-,thin,black}}
 
 \DeclareMathOperator{\vspan}{\mathrm{span}}
 
+\DeclareMathOperator{\argmin}{\mathrm{argmin}}
+
 %opening
 \title{Digital Processing of Single and Multidimensional Signals}
 \author{Aakash Jog}
@@ -576,8 +578,25 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 	\begin{align*}
 		R(T) &= \left\{ y \Big| T x = y \, , \, x \in H \right\}
 	\end{align*}
-	\index{null space}
+	\index{range}
 \end{definition}
+
+\begin{theorem}
+	For any linear operator $T$,
+	\begin{align*}
+		N\left( T^* \right) &= {R(T)}^{\perp}\\
+		R\left( T^* \right) &= {N(T)}^{\perp}
+	\end{align*}
+	\index{null space}
+	\index{range}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		N(T) &= N\left( T^* T \right)
+	\end{align*}
+	\index{null space}
+\end{theorem}
 
 \begin{theorem}
 	For a linear operator $T: H \to S$,
@@ -708,15 +727,313 @@ E-mail: \href{mailto:raja@tauex.tau.ac.il}{raja@tauex.tau.ac.il}\\
 	\index{completeness}
 \end{definition}
 
+\section{Basis}
+
 \begin{definition}[Schauter basis]
-	A set $\{x_i\} \in H$ is said to be a basis of $H$ if for any $x \in H$, there are unique coefficients $a_i$ such that
+	A set $\{x_i\} \in H$ is said to be a Schauter basis of $H$ if for any $x \in H$, there are unique coefficients $a_i$ such that
 	\begin{align*}
 		x &= \sum\limits_{i = 1}^{n} a_i x_i
 	\end{align*}
 	where $n$ is the dimension of $H$, and may be infinite.
 	\index{basis!Schauter}
-	\index{basis}
 \end{definition}
+
+\begin{definition}[Riesz basis]
+	A set $\{x_i\} \in H$ is said to be a Riesz basis of $H$ if it is complete in $H$ and there exist $0 < A \le B < \infty$ such that
+	\begin{eqnarray*}
+		A \|a\|^2 \le \left\| \sum a_i x_i \right\|^2 \le B \|a\|^2\\
+		A \|x\|^2 \le \left\| \sum \langle x x_i \rangle \right\|^2 \le B \|x\|^2
+	\end{eqnarray*}
+	\index{basis!Riesz}
+\end{definition}
+
+\begin{theorem}
+	The elements of a Riesz basis are linearly independent.
+	\index{basis!Riesz}
+\end{theorem}
+
+\section{Projections}
+
+\begin{definition}[Projection]
+	The operator $T$ is said to be a projection if
+	\begin{align*}
+		T T &= T
+	\end{align*}
+	that is
+	\begin{align*}
+		T^2 &= T
+	\end{align*}
+	\index{projection}
+\end{definition}
+
+\begin{theorem}
+	\begin{align*}
+		R(T) \cap N(T) &= \{0\}
+	\end{align*}
+	where $T$ is a projection.
+	\index{projection}
+\end{theorem}
+
+\begin{proof}
+	Let $y \in R(T)$ and $y \in N(T)$.
+	Then,
+	\begin{align*}
+		T y &= y\\
+		T y &= 0
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		y &= 0
+	\end{align*}
+\end{proof}
+
+\begin{theorem}
+	\begin{align*}
+		H &= R(T) \oplus N(T)
+	\end{align*}
+	where $T$ is a projection.
+	\index{projection}
+\end{theorem}
+
+\begin{proof}
+	\begin{align*}
+		x &= T x + x - T x
+	\end{align*}
+	Hence, $T x$ is in $R(T)$, and $x - T x$ is in $N(T)$.
+	Therefore, as $x$ is in $H$,
+	\begin{align*}
+		H &= R(T) \cup N(T)
+	\end{align*}
+	Also,
+	\begin{align*}
+		R(T) \cap N(T) &= \{0\}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		H &= R(T) \oplus N(T)
+	\end{align*}
+\end{proof}
+
+\begin{theorem}
+	Any projection $T$ can be characterized by the range and the null space of $T$.
+	Hence, it can be denoted as
+	\begin{align*}
+		T &= E_{V W}
+	\end{align*}
+	where
+	\begin{align*}
+		V &= R(T)\\
+		W &= N(T)
+	\end{align*}
+	\index{projection}
+	\index{range}
+	\index{null space}
+\end{theorem}
+
+\subsection{Orthogonal Projections}
+
+\begin{definition}[Orthogonal projection]
+	A projection $T$ is said to be an orthogonal projection if
+	\begin{align*}
+		T &= T^*
+	\end{align*}
+	Hence, as
+	\begin{align*}
+		N(T) &= N\left( T^* \right)\\
+		&= R(T)
+	\end{align*}
+	or equivalently
+	\begin{align*}
+		V &= W^{\perp}
+	\end{align*}
+	it is enough to specify only $V$ to describe a orthogonal projection.
+	Hence,
+	\begin{align*}
+		T &= P_V
+	\end{align*}
+	\index{projection!orthogonal}
+\end{definition}
+
+\begin{theorem}
+	For an orthogonal projection $P_V$,
+	\begin{align*}
+		\langle x_V , x_{V^{\perp}} \rangle &= 0
+	\end{align*}
+	where
+	\begin{align*}
+		x_V &= P_V x
+	\end{align*}
+	\index{projection!orthogonal}
+\end{theorem}
+
+\begin{theorem}
+	For an orthogonal projection $P_V$,
+	\begin{align*}
+		\|x\|^2 &= \|x_V\|^2 + \|x_{V^{\perp}}\|^2\\
+		\therefore \|x_V\|^2 &\le \|x\|^2
+	\end{align*}
+	where
+	\begin{align*}
+		x_V &= P_V x
+	\end{align*}
+	\index{projection!orthogonal}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		x_V &= P_V x\\
+		&= \argmin\limits_{v \in V} \|v - x\|^2
+	\end{align*}
+	\index{projection!orthogonal}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		P_V &= V \tilde{V}^*\\
+		&= V \left( V^* V \right)^{-1} V^*
+	\end{align*}
+	\index{projection!orthogonal}
+\end{theorem}
+
+\subsection{Oblique Projections}
+
+\begin{definition}[Oblique projection]
+	A projection $T$ is said to be an oblique projection if
+	\begin{align*}
+		T &\neq T^*
+	\end{align*}
+	Such a projection can be denoted as
+	\begin{align*}
+		T &= E_{V W}\\
+		x &= x_V + x_W
+	\end{align*}
+	similar to orthogonal projections, but
+	\begin{align*}
+		\langle x_V , x_W \rangle &\neq 0
+	\end{align*}
+	\index{projection!oblique}
+\end{definition}
+
+\section{Pseudoinverse}
+
+\begin{definition}[Pseudoinverse]
+	Let $T$ be a transformation with closed range.
+	Then, the pseudoinverse of $T$ is defined to be $T^{\dagger}$, such that
+	\begin{align*}
+		T^{\dagger} T x &= x\\
+		T^{\dagger} y &=
+	\end{align*}
+	for all $x \in {N(T)}^{\perp}$, and for all $y \in {R(T)}^{\perp}$.
+	\index{pseudoinverse}
+\end{definition}
+
+\begin{theorem}
+	\begin{align*}
+		T T^{\dagger} &= P_{R(T)}
+	\end{align*}
+	\index{pseudoinverse}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		T^{\dagger} T &= P_{{N(T)}^{\perp}}
+	\end{align*}
+	\index{pseudoinverse}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		R\left( T^{\dagger} \right) &= N(T)^{\perp}
+	\end{align*}
+	\index{pseudoinverse}
+\end{theorem}
+
+\begin{theorem}
+	\begin{align*}
+		N\left( T^{\dagger} \right) &= R(T)^{\perp}
+	\end{align*}
+	\index{pseudoinverse}
+\end{theorem}
+
+\begin{theorem}
+	If $T^* T$ is invertible,
+	\begin{align*}
+		T^{\dagger} &= \left( T^* T \right)^{-1} T^*
+	\end{align*}
+	\index{pseudoinverse}
+\end{theorem}
+
+\section{Frames}
+
+\begin{definition}[Frame]
+	The set $\{x_i\}$ is said to be a frame of $H$ if and only if there exist $0 < A \le B < \infty$ such that
+	\begin{eqnarray*}
+		A \|x\|^2 \le \sum \left| \langle x_i,x \rangle \right|^2 \le B \|x\|^2
+	\end{eqnarray*}
+	for all $x \in H$.
+	\index{frame}
+\end{definition}
+
+\begin{theorem}
+	A frame is a complete set.
+	\index{frame}
+\end{theorem}
+
+\begin{definition}[Tight frame]
+	A frame for which $A = B$ is called a tight frame.
+	\index{frame!tight}
+\end{definition}
+
+\begin{definition}[Dual frame]
+
+\begin{definition}[Dual frame]
+	For any frame $\{x_i\}$ of $H$, and for $x \in H$, a dual frame $\left\{ \tilde{x_i} \right\}$ of $\{x_i\}$ is defined such that
+	\begin{align*}
+		x &= \sum \langle \tilde{x_i},x \rangle x_i
+	\end{align*}
+	\index{frame!dual}
+\end{definition}
+
+\begin{theorem}
+	A dual frame is not unique.
+	\index{frame!dual}
+\end{theorem}
+
+\begin{definition}[Canonical dual frame]
+	The canonical dual frame $\tilde{X}$ of $X$ is defined to be
+	\begin{align*}
+		\tilde{X} &= \left( X X^* \right)^* X\\
+		&= \left( X^{\dagger} \right)^*
+	\end{align*}
+	If $X$ is a tight frame, with $A = B$,
+	\begin{align*}
+		\tilde{X} &= \frac{1}{A} X
+	\end{align*}
+	In finite dimensions, the frame $X$ has more columns than rows, and has full rank.
+	\index{frame!canonical dual}
+\end{definition}
+
+\begin{theorem}
+	A matrices, $X$ is a tight frame with $A = 1$ if its rows are orthonormal, i.e.
+	\begin{align*}
+		X X^* &= I
+	\end{align*}
+	\index{frame!tight}
+\end{theorem}
+
+\clearpage
+\part{Sampling Theory}
+
+\section{Shannon's Interpolation Formula}
+
+\begin{theorem}[Shannon's Interpolation Formula]
+	A bandlimited signal limited by $\pm\frac{1}{2 T}$ can be reconstructed from the samples $x(n T)$ from the formula
+	\begin{align*}
+		x(t) &= \sum\limits_{n = -\infty}^{\infty} x(n T) \sinc\left( \frac{t - n T}{T} \right)
+	\end{align*}
+	\label{thm:Shannons_Interpolation_Formula}
+	\index{Shannon's Interpolation Formula}
+\end{theorem}
 
 \clearpage
 \printindex
